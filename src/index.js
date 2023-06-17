@@ -6,14 +6,10 @@ import { addGallery } from './markup';
 
 const form = document.querySelector('#search-form');
 const galleryList = document.querySelector('.gallery');
-const btn = document.querySelector('button[type="submit"]');
 const btnLoadMore = document.querySelector('.load-more');
-const inputValue = document.querySelector('input[type="text"]');
 
 const pixabayAPI = new PixabayAPI();
 const lightbox = new SimpleLightbox('.gallery a');
-
-btnLoadMore.style.display = 'none';
 
 const handlerForm = async event => {
   event.preventDefault();
@@ -47,7 +43,7 @@ const handlerLoadMore = async () => {
   pixabayAPI.page += 1;
 
   try {
-    const { data } = await pixabayAPI.fetchPhotosByQuery();
+    const data = await pixabayAPI.fetchPhotosByQuery();
 
     galleryList.insertAdjacentHTML('beforeend', addGallery(data.hits));
 
@@ -65,6 +61,14 @@ const handlerLoadMore = async () => {
   } catch (error) {
     Notiflix.Notify.failure(`Something went wrong: ${error.message}`);
   }
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 };
 
 form.addEventListener('submit', handlerForm);

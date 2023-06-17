@@ -6,16 +6,16 @@ export const addGallery = imagesInfo => {
   <img src="${imgInfo.webformatURL}"width="300" height="200" alt="${imgInfo.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
-      <b>Likes${imgInfo.likes}</b>
+      <b>Likes &#9829 ${imgInfo.likes}</b>
     </p>
     <p class="info-item">
-      <b>Views${imgInfo.views}</b>
+      <b>Views &#9863 ${imgInfo.views}</b>
     </p>
     <p class="info-item">
-      <b>Comments${imgInfo.comments}</b>
+      <b>Comments &#9993 ${imgInfo.comments}</b>
     </p>
     <p class="info-item">
-      <b>Downloads${imgInfo.downloads}</b>
+      <b>Downloads &#10004 ${imgInfo.downloads}</b>
     </p>
   </div>
 </div></a>`;
