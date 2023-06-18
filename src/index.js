@@ -27,7 +27,6 @@ const handlerForm = async event => {
 
     if (data.totalHits === 0) {
       galleryList.innerHTML = '';
-      // btnLoadMore.classList.add('is-hidden');
       return Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
@@ -39,7 +38,6 @@ const handlerForm = async event => {
     galleryList.innerHTML = addGallery(data.hits);
     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
     lightbox.refresh();
-    // btnLoadMore.classList.remove('is-hidden');
   } catch (error) {
     Notiflix.Notify.failure(`Something went wrong: ${error.message}`);
   }
@@ -55,10 +53,11 @@ const handlerLoadMore = async () => {
 
     if (data.totalHits === 0) {
       Notiflix.Notify.failure('No more images to load.');
+      btnLoadMore.classList.add('is-hidden');
       return;
     }
 
-    if (pixabayAPI.page === data.totalHits) {
+    if (pixabayAPI.page === data.totalPages) {
       btnLoadMore.classList.add('is-hidden');
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
