@@ -30,13 +30,15 @@ const handlerForm = async event => {
       return Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
-    } else {
-      btnLoadMore.classList.remove('is-hidden');
     }
 
     galleryList.innerHTML = addGallery(data.hits);
     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
     lightbox.refresh();
+
+    if (data.totalHits >= 40) {
+      btnLoadMore.classList.remove('is-hidden');
+    }
   } catch (error) {
     Notiflix.Notify.failure(`Something went wrong: ${error.message}`);
   }
