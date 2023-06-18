@@ -30,8 +30,7 @@ const handlerForm = async event => {
       return Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
-    }
-    if (data.totalHits !== 1) {
+    } else {
       btnLoadMore.classList.remove('is-hidden');
     }
 
@@ -51,12 +50,6 @@ const handlerLoadMore = async () => {
 
     galleryList.insertAdjacentHTML('beforeend', addGallery(data.hits));
 
-    if (data.totalHits === 0) {
-      Notiflix.Notify.failure('No more images to load.');
-      btnLoadMore.classList.add('is-hidden');
-      return;
-    }
-
     if (pixabayAPI.page === data.totalPages) {
       btnLoadMore.classList.add('is-hidden');
       Notiflix.Notify.info(
@@ -67,14 +60,14 @@ const handlerLoadMore = async () => {
     Notiflix.Notify.failure(`Something went wrong: ${error.message}`);
   }
 
-  const { height: cardHeight } = document
-    .querySelector('.gallery')
-    .firstElementChild.getBoundingClientRect();
+  // const { height: cardHeight } = document
+  //   .querySelector('.gallery')
+  //   .firstElementChild.getBoundingClientRect();
 
-  window.scrollBy({
-    top: cardHeight * 2,
-    behavior: 'smooth',
-  });
+  // window.scrollBy({
+  //   top: cardHeight * 2,
+  //   behavior: 'smooth',
+  // });
 };
 
 form.addEventListener('submit', handlerForm);
