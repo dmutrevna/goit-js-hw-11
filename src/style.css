@@ -64,3 +64,7 @@ b:focus {
   color: #f4f0f0;
   outline: none;
 }
+
+.is-hidden {
+  display: none;
+}
