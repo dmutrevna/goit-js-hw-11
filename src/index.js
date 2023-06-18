@@ -50,7 +50,7 @@ const handlerLoadMore = async () => {
 
     galleryList.insertAdjacentHTML('beforeend', addGallery(data.hits));
 
-    if (pixabayAPI.page === data.totalPages) {
+    if (pixabayAPI.page === Math.ceil(data.totalHits / 40)) {
       btnLoadMore.classList.add('is-hidden');
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
@@ -60,14 +60,14 @@ const handlerLoadMore = async () => {
     Notiflix.Notify.failure(`Something went wrong: ${error.message}`);
   }
 
-  // const { height: cardHeight } = document
-  //   .querySelector('.gallery')
-  //   .firstElementChild.getBoundingClientRect();
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
 
-  // window.scrollBy({
-  //   top: cardHeight * 2,
-  //   behavior: 'smooth',
-  // });
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 };
 
 form.addEventListener('submit', handlerForm);
